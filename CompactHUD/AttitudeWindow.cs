@@ -129,6 +129,7 @@ namespace CompactHUD
                 bool rcsMode = true;
                 bool rcsRateMode = true;
                 string gStr = "0.00 G";
+                double gForceLimitFraction = 0f;
 
                 if (rocket != null)
                 {
@@ -146,6 +147,8 @@ namespace CompactHUD
 
                     bTargetFrame = navBallFrame == VehicleReferenceFrame.Dock ? true : false;
                     bBurnFrame = navBallFrame == VehicleReferenceFrame.BurnBody ? true : false;
+
+                    gForceLimitFraction = rocket.StructuralLoad.GLoadFraction;
                 }
 
                 bool trackingNone = rocket.FlightComputer.AttitudeTrackTarget == FlightComputerAttitudeTrackTarget.None;
@@ -155,6 +158,16 @@ namespace CompactHUD
                 float3 blueColor = new float3(0.1f, 0.1f, 0.7f);
                 float3 grayColor = new float3(0.3f, 0.3f, 0.3f);
                 float4 backgroundColor = new float4(0.05f, 0.05f, 0.05f, 1.0f);
+
+                float4 redText = new float4(1.0f, 0.1f, 0.1f, 1.0f);
+                float4 orangeText = new float4(1.0f, 0.6f, 0.1f, 1.0f);
+                float4 gForceColor = new float4(1.0f, 1.0f, 1.0f, 1.0f);
+
+                if (gForceLimitFraction >= 0.7f)
+                    gForceColor = redText;
+                else if (gForceLimitFraction >= 0.5f)
+                    gForceColor = orangeText;
+
 
                 float3 rcsColor = rcsMode ? greenColor : redColor;
                 float3 rateColor = rcsRateMode ? greenColor : redColor;
@@ -301,7 +314,7 @@ namespace CompactHUD
 
                     ImGui.TableNextColumn();
 
-                    ImGui.Text(gStr);
+                    ImGui.TextColored(gForceColor, gStr);
 
                     ImGui.EndTable();
                 }

@@ -176,7 +176,6 @@ namespace CompactHUD
                         closestApproachStr += "N/A";
                         closestApproachTimeStr += "N/A";
                     }
-
                 }
 
                 bool trackingNone = rocket.FlightComputer.AttitudeTrackTarget == FlightComputerAttitudeTrackTarget.None;
