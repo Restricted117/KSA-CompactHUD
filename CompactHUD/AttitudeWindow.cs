@@ -160,13 +160,13 @@ namespace CompactHUD
                 float4 backgroundColor = new float4(0.05f, 0.05f, 0.05f, 1.0f);
 
                 float4 redText = new float4(1.0f, 0.1f, 0.1f, 1.0f);
-                float4 orangeText = new float4(1.0f, 0.6f, 0.1f, 1.0f);
+                float4 yellowText = new float4(1.0f, 1.0f, 0.1f, 1.0f);
                 float4 gForceColor = new float4(1.0f, 1.0f, 1.0f, 1.0f);
 
-                if (gForceLimitFraction >= 0.7f)
+                if (gForceLimitFraction >= 0.5f)
                     gForceColor = redText;
-                else if (gForceLimitFraction >= 0.5f)
-                    gForceColor = orangeText;
+                else if (gForceLimitFraction >= 0.7f)
+                    gForceColor = yellowText;
 
 
                 float3 rcsColor = rcsMode ? greenColor : redColor;

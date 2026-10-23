@@ -1,6 +1,5 @@
 ﻿using Brutal.ImGuiApi;
 using HarmonyLib;
-using KSA;
 using StarMap.API;
 
 
@@ -38,6 +37,29 @@ namespace CompactHUD
         {
             AttitudeWindow.DrawWindow();
             VehicleInfoWindow.DrawWindow();
+        }
+
+
+
+        [ModMenuEntry("CompactHud")]
+        public static void DrawModMenu()
+        {
+            try 
+            {
+                ImGui.MenuItem("Vertical Info Window", default, ref VehicleInfoWindow.verticalLayout);
+                ImGui.MenuItem("Hide Attiude Window", default, ref AttitudeWindow.hidden);
+                ImGui.MenuItem("Hide Info Window", default, ref VehicleInfoWindow.hidden);
+
+                if (ImGui.MenuItem(VehicleWorkerHook.GetIfInstalled() ? "Disable CompactHud" : "Enable CompactHud"))
+                {
+                    if (VehicleWorkerHook.GetIfInstalled())
+                        VehicleWorkerHook.Remove();
+                    if (!VehicleWorkerHook.GetIfInstalled())
+                        VehicleWorkerHook.Install();
+                }
+            }
+            catch { }
+  
         }
 
     }

@@ -131,6 +131,9 @@ namespace CompactHUD
             if (Program.IsEditorOpen || !Program.IsControlledVehicleActive || Program.ControlledVehicle == null)
                 return false;
 
+            if (ModMenuPresence.Installed)
+                return false;
+
             if (ImGui.BeginMenu("CompactHUD"))
             {
                 ImGui.MenuItem("Vertical Info Window", default, ref VehicleInfoWindow.verticalLayout);
