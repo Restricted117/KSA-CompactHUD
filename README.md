@@ -32,4 +32,14 @@ enabled = true
 
 ## Gallery
 
+### Horizontal Layout
+<img width="1920" height="1008" alt="compactHUD horizontal" src="https://github.com/user-attachments/assets/17cbdca6-4d3d-4dce-84e6-43158267dce7" />
+
+### Vertical Layout
+<img width="1920" height="1008" alt="compactHUD vertical" src="https://github.com/user-attachments/assets/1729898e-c750-4629-8ac0-11de9f93f060" />
+
+### Stock Layout
+<img width="1920" height="1008" alt="stock hud" src="https://github.com/user-attachments/assets/6a46997d-26a3-4d76-95a0-218757a740ad" />
+
+
 
