@@ -12,6 +12,24 @@ CompactHUD is a Kitten Space Agency mod that condenses the information from all 
 ## Installation
 CompactHUD supports manual installation through StarMap or by using the mod loader Borea.
 
+### Borea
+1. Install [Borea](https://github.com/KSAModding/Borea)
+2. Search for KSA-CompactHUD and install.
+3. Launch from Borea to use the mod.
+
+### StarMap
+1. Follow the install instructions and install [StarMap](https://github.com/StarMapLoader/StarMap).
+2. Download and extract the latest release CompactHUD from the releases.
+3. Place the CompactHUD folder into ```Documents/My Games/Kitten Space Agency/mods/``` (recommended, persists across game updates) or ```<KSA Installation>/Content/<ModName>/```
+   make sure the mod is ```CompactHUD/<mod files``` and not ```CompactHUD/CompactHUD/<mod files```
+4. Open ```<KSA Installation>/Content/manifest.toml``` and add this to it and save:
+```
+[[mods]]
+id = "KSArmory"
+enabled = true
+```
+5.Launch KSA using StarMap to use the mod.
+
 ## Gallery
 
 
