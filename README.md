@@ -4,6 +4,7 @@ CompactHUD is a Kitten Space Agency mod that condenses the information from all 
 ## Features
 * Navball sets the frame of the vehicle flight computer. This means that if you're set to prograde and the navball is set to the surface frame it points prograde in that frame. Switching to orbit frame points to prograde in that frame and etc.
 * Now allows you to point in the positive velocity direction in your target frame. The base game only allows for pointing in the negative direction of your target.
+* Time to apoapsis/periapsis is shown in info window.
 * Max G-load warning. The G force readout turns yellow at 50% of your vehicles structural limit and turns red at 70%.
 * The info panel supports vertical/horizontal layouts.
 * The window layout is saved automatically when exiting the game and is loaded once on startup.
