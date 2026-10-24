@@ -21,7 +21,7 @@ CompactHUD supports manual installation through StarMap or by using the mod load
 1. Follow the install instructions and install [StarMap](https://github.com/StarMapLoader/StarMap).
 2. Download and extract the latest release CompactHUD from the releases.
 3. Place the CompactHUD folder into ```Documents/My Games/Kitten Space Agency/mods/``` (recommended, persists across game updates) or ```<KSA Installation>/Content/<ModName>/```
-   make sure the mod is ```CompactHUD/<mod files``` and not ```CompactHUD/CompactHUD/<mod files```
+   make sure the mod is ```CompactHUD/<mod files>``` and not ```CompactHUD/CompactHUD/<mod files>```
 4. Open ```Documents/My Games/Kitten Space Agency/manifest.toml``` and add this to it and save:
 ```
 [[mods]]
