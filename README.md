@@ -13,7 +13,7 @@ CompactHUD is a Kitten Space Agency mod that condenses the information from all 
 ## Installation
 CompactHUD supports manual installation through StarMap or by using the mod loader Borea.
 
-### Borea (Not working yet)
+### Borea
 1. Install [Borea](https://github.com/KSAModding/Borea)
 2. Search for KSA-CompactHUD and install.
 3. Launch from Borea to use the mod.
