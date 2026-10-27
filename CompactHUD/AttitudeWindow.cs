@@ -162,10 +162,11 @@ namespace CompactHUD
                 float4 redText = new float4(1.0f, 0.1f, 0.1f, 1.0f);
                 float4 yellowText = new float4(1.0f, 1.0f, 0.1f, 1.0f);
                 float4 gForceColor = new float4(1.0f, 1.0f, 1.0f, 1.0f);
+                Console.WriteLine(gForceLimitFraction.ToString());
 
-                if (gForceLimitFraction >= 0.5f)
+                if (gForceLimitFraction >= 0.7f)
                     gForceColor = redText;
-                else if (gForceLimitFraction >= 0.7f)
+                else if (gForceLimitFraction >= 0.5f)
                     gForceColor = yellowText;
 
 

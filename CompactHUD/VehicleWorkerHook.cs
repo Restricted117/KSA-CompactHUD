@@ -188,6 +188,9 @@ namespace CompactHUD
                 double3 velTarget = vehicle.Target.GetVelocityCci();
                 double3 velDiff = velParent - velTarget;
 
+                if (velDiff.Length() < 1e-3) 
+                    return;
+
                 double3 refVec = (double3.Cross(posParent, velParent)).NormalizeOrZero();
                 double3 forward = velDiff.NormalizeOrZero();
 

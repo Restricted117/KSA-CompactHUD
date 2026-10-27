@@ -82,6 +82,7 @@ namespace CompactHUD
                 VehicleInfoWindow.verticalLayout = false;
                 return winPos;
             }
+
             try
             {
                 XElement match = XDocument.Load(filePath).Root.Elements("Window").FirstOrDefault(p => (string)p.Element("Name") == name);
