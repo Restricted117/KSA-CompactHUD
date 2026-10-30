@@ -8,8 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lib.Harmony" Version="2.4.2" />
-    <PackageReference Include="StarMap.API" Version="0.3.6" />
+    <Compile Remove="ModMenuEntry.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.4.3" />
+    <PackageReference Include="StarMap.API" Version="0.5.4" />
   </ItemGroup>
 
   <ItemGroup>

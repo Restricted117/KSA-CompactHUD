@@ -122,20 +122,21 @@ namespace CompactHUD
     }
 
 
-    //patch to draw a tab on the top menu bar if mod menu isnt installed
+    //patch to draw a tab on the top menu bar
     [HarmonyPatch(typeof(Program), nameof(Program.DrawProgramMenusHook))]
     public static class ProgramMenuHook
     {
-        static bool Prefix()
+        static void Postfix()
         {
             if (Program.IsEditorOpen || !Program.IsControlledVehicleActive || Program.ControlledVehicle == null)
-                return false;
+                return;
 
-            if (ModMenuPresence.Installed)
-                return false;
 
-            if (ImGui.BeginMenu("CompactHUD"))
+            if (!ImGui.BeginMenu("CompactHUD")) return;
+            try
             {
+                ((IGameViewportLifecycle)Program.HoveredViewport).SetMenuBarInUse(true);
+
                 ImGui.MenuItem("Vertical Info Window", default, ref VehicleInfoWindow.verticalLayout);
                 ImGui.MenuItem("Hide Attiude Window", default, ref AttitudeWindow.hidden);
                 ImGui.MenuItem("Hide Info Window", default, ref VehicleInfoWindow.hidden);
@@ -147,10 +148,18 @@ namespace CompactHUD
                     if (!VehicleWorkerHook.GetIfInstalled())
                         VehicleWorkerHook.Install();
                 }
+
+                if (ImGui.MenuItem("Save Layout"))
+                {
+                    Utilities.SaveWinPos(AttitudeWindow._offsetUv, AttitudeWindow.windowName);
+                    Utilities.SaveWinPos(VehicleInfoWindow._offsetUv, VehicleInfoWindow.windowName, VehicleInfoWindow.verticalLayout);
+                }
+            }
+            finally 
+            {
                 ImGui.EndMenu();
             }
 
-            return false;
         }
     }
 

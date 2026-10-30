@@ -1,1 +1,4 @@
 name = "CompactHUD"
+
+[StarMap]
+EntryAssembly = "CompactHUD"
