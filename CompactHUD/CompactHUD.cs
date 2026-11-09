@@ -1,8 +1,5 @@
-﻿using Brutal.ImGuiApi;
-using Brutal.Numerics;
-using HarmonyLib;
+﻿using HarmonyLib;
 using StarMap.API;
-using StarMap.API.Services;
 
 
 namespace CompactHUD
