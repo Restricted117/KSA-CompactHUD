@@ -36,7 +36,7 @@ enabled = true
 ## Gallery
 
 ### Horizontal Layout
-<img width="1920" height="1008" alt="compactHUD horizontal" src="https://github.com/user-attachments/assets/17cbdca6-4d3d-4dce-84e6-43158267dce7" />
+![horizontal]([http://url/to/img.png](https://github.com/Restricted117/KSA-CompactHUD/blob/master/images/horizontal.jpg))
 
 ### Vertical Layout
 <img width="1920" height="1008" alt="compactHUD vertical" src="https://github.com/user-attachments/assets/1729898e-c750-4629-8ac0-11de9f93f060" />
