@@ -89,11 +89,12 @@ namespace CompactHUD
             if (hidden)
                 return;
 
-            float2 winSizeUV = new float2(0.23f, 0.25f);
+            //old size: (0.23f, 0.25f) (0.23f, 0.325f)
+            float2 winSizeUV = new float2(0.265f, 0.275f);
 
             if (treeOpen)
             {
-                winSizeUV = new float2(0.23f, 0.325f);
+                winSizeUV = new float2(0.265f, 0.35f);
             }
 
             var window = new ImGaugeWindow(
@@ -112,9 +113,9 @@ namespace CompactHUD
                     sizeWinDef = sizeWin;
                 }
 
-                float2 titleHandle = new float2(sizeWinDef.X, sizeWinDef.Y * 0.075f);
+                float2 titleHandle = new float2(sizeWinDef.X, sizeWinDef.Y * 0.065f);
                 ImGui.SetCursorScreenPos(posWin);
-                ImGauge.Label("ATTITUDE ", titleHandle);
+                ImGauge.Label("FLIGHT COMPUTER ", titleHandle);
                 ImGauge.DrawDressedBox(posWin, sizeWin);
 
                 Vehicle rocket = Program.ControlledVehicle;
@@ -129,7 +130,11 @@ namespace CompactHUD
                 bool rcsMode = true;
                 bool rcsRateMode = true;
                 string gStr = "0.00 G";
+                string dynPressStr = "Q: 0.00";
+                string atmPressStr = "ATM: 0.00";
                 double gForceLimitFraction = 0f;
+                double dynPressLimitFraction = 0f;
+
 
                 if (rocket != null)
                 {
@@ -137,7 +142,9 @@ namespace CompactHUD
                     navBallFrame = navBall.Frame;
                     State.Frame = navBallFrame;
 
-                    gStr = (rocket.FlightComputer.TotalAcceleration / 9.8f).ToString("N2") + " G";
+                    gStr = " " + (rocket.FlightComputer.TotalAcceleration / 9.8f).ToString("N2") + " G";
+                    dynPressStr = "q: " + (rocket.ComputeDynamicPressure() / 101325.0f).ToString("N2");
+                    atmPressStr = "ATM: " + (rocket.FlightComputer.AmbientPressure / 101325.0f).ToString("N2");
 
                     rcsMode = rocket.FlightComputer.RCSMode == FlightComputerRCSMode.Enabled ? true : false;
                     rcsRateMode = rocket.FlightComputer.AttitudeMode == FlightComputerAttitudeMode.Auto ? true : false;
@@ -149,6 +156,7 @@ namespace CompactHUD
                     bBurnFrame = navBallFrame == VehicleReferenceFrame.BurnBody ? true : false;
 
                     gForceLimitFraction = rocket.StructuralLoad.GLoadFraction;
+                    dynPressLimitFraction = rocket.StructuralLoad.DynamicPressureFraction;
                 }
 
                 bool trackingNone = rocket.FlightComputer.AttitudeTrackTarget == FlightComputerAttitudeTrackTarget.None;
@@ -162,11 +170,17 @@ namespace CompactHUD
                 float4 redText = new float4(1.0f, 0.1f, 0.1f, 1.0f);
                 float4 yellowText = new float4(1.0f, 1.0f, 0.1f, 1.0f);
                 float4 gForceColor = new float4(1.0f, 1.0f, 1.0f, 1.0f);
+                float4 dynPressColor = new float4(1.0f, 1.0f, 1.0f, 1.0f);
 
                 if (gForceLimitFraction >= 0.7f)
                     gForceColor = redText;
                 else if (gForceLimitFraction >= 0.5f)
                     gForceColor = yellowText;
+
+                if (dynPressLimitFraction >= 0.7f)
+                    dynPressColor = redText;
+                else if (dynPressLimitFraction >= 0.5f)
+                    dynPressColor = yellowText;
 
 
                 float3 rcsColor = rcsMode ? greenColor : redColor;
@@ -182,8 +196,8 @@ namespace CompactHUD
                 float3 radInColor = State.Target == AttitudeWindowTarget.RadIn && !trackingNone ? greenColor : grayColor;
                 float3 noneColor = State.Target == AttitudeWindowTarget.None || trackingNone ? greenColor : grayColor;
 
-                float2 btnSize = new float2(sizeWinDef.X * 0.31f, sizeWinDef.Y * 0.135f);
-                float textScale = 0.25f;
+                float2 btnSize = new float2(sizeWinDef.X * 0.31f, sizeWinDef.Y * 0.12f);
+                float textScale = 0.275f;
 
                 var btnStyle = new ImGaugeStyle(
                     textColor: new float3(1f, 1f, 1f),
@@ -290,9 +304,36 @@ namespace CompactHUD
                     disabled: false);
 
 
-                if (ImGui.BeginTable("table1", 3))
+                ImGuiTableFlags infoFlags = ImGuiTableFlags.PadOuterX;
+
+                if (ImGui.BeginTable("tableInfo", 3, infoFlags))
+                {
+                    ImGui.PushFont(ImGui.GetFont(), ImGui.GetFontSize() * 0.825f);
+
+                    ImGui.TableNextColumn();
+
+                    ImGui.TextColored(gForceColor, gStr);
+
+                    ImGui.TableNextColumn();
+
+                    ImGui.TextColored(dynPressColor, dynPressStr);
+
+                    ImGui.TableNextColumn();
+
+                    ImGui.Text(atmPressStr);
+
+                    ImGui.PopFont();
+                    ImGui.EndTable();
+                }
+
+
+                if (ImGui.BeginTable("table1", 1))
                 {
                     ImGui.TableNextColumn();
+
+                    // outer and inner spacing are equal: gap | btn | gap | btn | gap
+                    float table1Gap = System.MathF.Max(0.0f, (ImGui.GetContentRegionAvail().X - 2.0f * btnSize.X) / 3.0f);
+                    ImGui.SetCursorPosX(ImGui.GetCursorPosX() + table1Gap);
 
                     if (ImGauge.Button("RCS", btnSize, styleRCS) && rocket != null)
                     {
@@ -302,7 +343,7 @@ namespace CompactHUD
                             State.ModeRCS = FlightComputerRCSMode.Disabled;
                     }
 
-                    ImGui.TableNextColumn();
+                    ImGui.SameLine(0.0f, table1Gap);
 
                     if (ImGauge.Button("RATE", btnSize, styleRateRCS) && rocket != null)
                     {
@@ -312,12 +353,11 @@ namespace CompactHUD
                             State.AttitudeMode = FlightComputerAttitudeMode.Manual;
                     }
 
-                    ImGui.TableNextColumn();
-
-                    ImGui.TextColored(gForceColor, gStr);
-
                     ImGui.EndTable();
                 }
+
+
+
 
                 string attProfileStr = "";
                 string rollModeStr = "";
