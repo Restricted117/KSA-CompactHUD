@@ -8,6 +8,8 @@ CompactHUD is a Kitten Space Agency mod that condenses the information from all 
 * Now allows you to point in the positive velocity direction in your target frame. The base game only allows for pointing in the negative direction of your target.
 * Time to apoapsis/periapsis is shown in info window.
 * Max G-load warning. The G force readout turns yellow at 50% of your vehicles structural limit and turns red at 70%.
+* Max dynamic pressure warning. The dynamic pressure readout (displayed as q with units in atmospheres) turns yellow at 50% of your vehicles structural limit and turns red at 70%.
+* Ambient atmospheric readout with units in atmospheres.
 * The info panel supports vertical/horizontal layouts.
 * The window layout is saved automatically when exiting the game and is loaded once on startup.
 * Works with ModMenu or without it.

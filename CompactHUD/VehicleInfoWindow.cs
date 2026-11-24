@@ -77,7 +77,22 @@ namespace CompactHUD
                     navBall = rocket.NavBallData;
                     
                     deltaVStr += Utilities.MetersToString(rocket.Parts.PerformanceSequences.TotalDeltaV, true);
-                    TWRStr += rocket.NavBallData.ThrustWeightRatio.ToString("0.00");
+
+                    try
+                    {
+                        double thrust = rocket.FlightComputer.ActiveEnginePerformanceMax.Thrust; 
+                        double mass = rocket.TotalMass;                            
+                        double g0 = 6.6743e-11 * rocket.Parent.Mass / (rocket.Parent.MeanRadius * rocket.Parent.MeanRadius);
+                        double twrMax = thrust / (mass * g0);                   
+                        TWRStr += twrMax.ToString("0.00");
+                    }
+                    catch
+                    {
+                        double thrust = rocket.FlightComputer.ActiveEnginePerformanceMax.Thrust;
+                        double mass = rocket.TotalMass;
+                        double twrMax = thrust / (mass * 9.8);
+                        TWRStr += twrMax.ToString("0.00");
+                    }
 
                     try
                     {
