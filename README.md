@@ -39,7 +39,7 @@ enabled = true
 ![horizontal](https://github.com/Restricted117/KSA-CompactHUD/blob/master/images/horizontal.jpg)
 
 ### Vertical Layout
-<img width="1920" height="1008" alt="compactHUD vertical" src="https://github.com/user-attachments/assets/1729898e-c750-4629-8ac0-11de9f93f060" />
+![vertical](https://github.com/Restricted117/KSA-CompactHUD/blob/master/images/vertical.png)
 
 ### Stock Layout
 <img width="1920" height="1008" alt="stock hud" src="https://github.com/user-attachments/assets/6a46997d-26a3-4d76-95a0-218757a740ad" />
